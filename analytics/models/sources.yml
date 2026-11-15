@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: jobs  #jobs is the name of the source, it can be anything you want
+    description: Raw data.
+    database: dbtfc
+    schema: dbt_schema_raw
+    tables:
+      - name: dbt_parquet_data
+        description: Job postings loaded from local parquet files via aws s3 external stage
+      - name: dbt_parquet_skills
+        description: The table contains records of skill-related data 
