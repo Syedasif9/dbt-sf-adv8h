@@ -1,7 +1,7 @@
-{% set roles = ['data analyst','data engineer','data scientist'] %}
+{% set roles = dbt_utils.get_column_values(table=ref('stg_job_postings'), column='"search_term"') %}
 
 {% for role in roles -%}
-select 
+select
     "search_term",
     count(*) AS postings
 from {{ ref('stg_job_postings') }}

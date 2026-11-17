@@ -32,7 +32,7 @@ select
     ARRAY_CONTAINS(
         '{{ keyword }}'::VARIANT,
         job_extensions
-    ) AS "has_{{ keyword | lower() | replace(' ','_') }}"
+    ) AS "has_{{ slugify(keyword) }}"
     {{- "," if not loop.last }}
     {% endfor %}
 FROM parsed
