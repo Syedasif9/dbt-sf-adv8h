@@ -1,0 +1,11 @@
+models:
+    - name: stg_job_skills
+      description: The table contains records linking jobs to required skills. Each record scopes a specific job and associates it with a skill identifier and a keyword describing the skill.
+      
+      columns:
+        - name: job_id
+          description: Job identifier associated with a specific job posting or record.
+        - name: skill_id
+          description: Skill identifier used to link the job to a specific skill reference.
+        - name: skill_keyword
+          description: Skill keyword or phrase describing a required or associated skill for the job.

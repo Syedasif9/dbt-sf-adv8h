@@ -1,7 +1,17 @@
-
+{% set extensions_keywords = ["no degree mentioned",
+                              "Health insurance", 
+                              "Dental insurance", 
+                              "Paid time off"] 
+%}
 with source as (
 select * from {{ source('jobs','dbt_parquet_data')}}
 WHERE "error" IS NULL AND "error_message" IS NULL AND "job_title" IS NOT NULL
+),
+parsed AS (
+    SELECT
+        *,
+        TRY_PARSE_JSON("job_extensions_raw")::array AS job_extensions
+    FROM source
 ),
 cleaned as(
 select
@@ -14,11 +24,17 @@ select
     "job_salary",
     "job_schedule_type",
     "job_work_from_home",
-    "job_extensions_raw",
     "search_time" as "searched_at",
     "search_date",
     "search_term",
-    "search_location"
-from source
+    "search_location",
+    {% for keyword in extensions_keywords -%}
+    ARRAY_CONTAINS(
+        '{{ keyword }}'::VARIANT,
+        job_extensions
+    ) AS "has_{{ keyword | lower() | replace(' ','_') }}"
+    {{- "," if not loop.last }}
+    {% endfor %}
+FROM parsed
 )
 select * from cleaned
