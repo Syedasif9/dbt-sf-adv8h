@@ -5,7 +5,7 @@
 %}
 with source as (
 select * from {{ source('jobs','dbt_parquet_data')}}
-WHERE "error" IS NULL AND "error_message" IS NULL AND "job_title" IS NOT NULL AND "job_id" IS NOT NULL
+WHERE "error" IS NULL AND "error_message" IS NULL  AND "job_id" IS NOT NULL
 ),
 parsed AS (
     SELECT
