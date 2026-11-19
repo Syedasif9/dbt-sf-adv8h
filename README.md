@@ -1,6 +1,7 @@
 # Production job postings pipeline (v2) - dbt +snowflake
 
-![pipeline architechture](image-1.png)
+<img width="1514" height="808" alt="Screenshot 2026-11-19 212726" src="https://github.com/user-attachments/assets/64f3f8d3-0453-4f73-9555-ca5d9d249d55" />
+
 
 A production dbt pipeline on Snowflake over 843,097 raw job-posting scrapes, rebuilt nightly by a scheduled job with zero secrets.
 
@@ -25,7 +26,8 @@ Loads incrementally and runs itself on a scheduled Snowflake Job.
 
 Raw scrapes flow through the medallion layers — raw → staging → intermediate → the star-schema marts — while snapshots capture history off staging. The lineage graph below is every model dbt builds:
 
-![lineage](image-2.png)
+![Uploading image.png…]()
+
 
 And the dbt features doing the work:
 
@@ -74,7 +76,6 @@ The marts keep each job's latest scrape — the snapshot table keeps every versi
 │   ├── macros/                       # parse_salary + generate_schema_name
 │   ├── tests/                        # singular + custom generic
 │   └── analyses/                     # the questions
-├── scripts/                          # load_raw.py (the job's ingest task) + snapshot backfill
 └── img/                              # README assets
 ```
 
