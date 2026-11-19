@@ -19,7 +19,7 @@ Loads incrementally and runs itself on a scheduled Snowflake Job.
 | Macros | A custom parser + an overridden built-in | `analytics/macros/` |
 | Tests | Generic, singular, and custom generic | `analytics/tests/` + the properties YAMLs |
 | Environments | Dev/prod as catalogs: dev from the laptop, prod only from the job | Unity Catalog: `dev` + `prod` |
-| Orchestration | Scheduled Databricks Job, zero secrets | Databricks → Jobs & Pipelines |
+| Orchestration | Scheduled Snowflake Job, zero secrets | Snowflake → Jobs & Pipelines |
 | Analyses | Questions, kept next to the models that answer them | `analytics/analyses/` |
 
 # The dbt Pipeline
@@ -52,7 +52,7 @@ dbt build compiles SQL, materializes models, and fails the run if any test fails
 Snowflake owns the runtime — storage, compute, and the schedule, one platform:
 
 Dev and prod as catalogs: laptop builds land in the dev catalog; only the scheduled job writes the same schemas into prod
-Scheduled Databricks Job runs the whole pipeline nightly: load_raw (the ingest notebook), then dbt deps → dbt debug → dbt build, pulling the repo straight from GitHub
+Scheduled Snowflake Job runs the whole pipeline nightly: load the raw data, then dbt deps → dbt debug → dbt build, pulling the repo straight from GitHub
 Zero secrets: the job generates a temporary-credentials profile against the attached warehouse and revokes it after the run — no tokens in the repo, no CI secrets
 Any BI tool connects straight to the warehouse — SQL editor, Excel, Power BI, and Tableau all query the prod catalog directly.
 
