@@ -64,6 +64,7 @@ The marts keep each job's latest scrape — the snapshot table keeps every versi
 
 # project layout
 
+```text
 .
 ├── analytics/
 │   ├── dbt_project.yml
@@ -73,5 +74,7 @@ The marts keep each job's latest scrape — the snapshot table keeps every versi
 │   ├── macros/                       # parse_salary + generate_schema_name
 │   ├── tests/                        # singular + custom generic
 │   └── analyses/                     # the questions
+├── scripts/                          # load_raw.py (the job's ingest task) + snapshot backfill
 └── img/                              # README assets
+```
 
