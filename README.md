@@ -26,7 +26,8 @@ Loads incrementally and runs itself on a scheduled Snowflake Job.
 
 Raw scrapes flow through the medallion layers — raw → staging → intermediate → the star-schema marts — while snapshots capture history off staging. The lineage graph below is every model dbt builds:
 
-![Uploading image.png…]()
+<img width="3244" height="1654" alt="image" src="https://github.com/user-attachments/assets/d53d7e46-20df-41f7-8546-ae013d425670" />
+
 
 
 And the dbt features doing the work:
