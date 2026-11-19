@@ -1,4 +1,4 @@
-# Production job postings pipeline (v2) - dbt +snowflake
+# Production job postings pipeline - dbt + Snowflake
 
 <img width="1514" height="808" alt="Screenshot 2026-11-19 212726" src="https://github.com/user-attachments/assets/64f3f8d3-0453-4f73-9555-ca5d9d249d55" />
 
