@@ -1,8 +1,4 @@
-{{ 
-  config(
-    materialized = 'ephemeral',
-    )
-}}
+{{ config(materialized='ephemeral') }}
 
 select *
 from {{ref('stg_job_postings')}}

@@ -84,6 +84,10 @@ models:
       - name: has_no_degree_mentioned
         description: Posting lists No degree mentioned among its extensions.
 
+  - name: stg_job_postings_current
+    description: >
+      Ephemeral snapshot input: each job's current row as of the as_of cutoff
+      (the time machine). Inlined into job_postings_snapshot; never built.
 
   - name: stg_job_skills
     description: >
@@ -98,6 +102,10 @@ models:
           pipeline runs nightly in production, where integrity is a real risk.
         data_tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_job_postings')
+                field: job_id
       - name: skill_id
         description: Skill key; categorized by the skill_categories seed via dim_skill.
         data_tests:
@@ -112,14 +120,11 @@ unit_tests:
     given:
       - input: source('jobs', 'dbt_parquet_data')
         rows:
-          - {job_id: 1, job_salary: "100K–186K a year", job_title: "Data Engineer", error: null, error_message: null}
-          - {job_id: 2, job_salary: "32.50 an hour",    job_title: "Data Analyst",   error: null, error_message: null}
-          - {job_id: 3, job_salary: null,                job_title: "Data Scientist", error: null, error_message: null}
+          - {job_id: 1, job_salary: "100K–186K a year", job_title: "Data Engineer"}
+          - {job_id: 2, job_salary: "32.50 an hour",    job_title: "Data Analyst"}
+          - {job_id: 3, job_salary: null,               job_title: "Data Scientist"}
     expect:
       rows:
         - {job_id: 1, salary_min: 100000, salary_max: 186000}
         - {job_id: 2, salary_min: 32.5, salary_max: 32.5}
-        - {job_id: 3, salary_min: null, salary_max: null}        
-
-
-
+        - {job_id: 3, salary_min: null, salary_max: null}
